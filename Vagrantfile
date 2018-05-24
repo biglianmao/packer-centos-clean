@@ -26,7 +26,15 @@ Vagrant.configure("2") do |config|
       v.customize ["modifyvm", :id, "--ioapic", "on"]
     end
 
-    virtualbox.vm.provision "shell", inline: "echo Hello, World"
+    # virtualbox.vm.provision "shell", inline: "echo Hello, World"
+    config.vm.provision :shell, privileged: false do |s|
+      ssh_pub_key = File.readlines("#{Dir.home}/.ssh/id_rsa.pub").first.strip
+      s.inline = <<-SHELL
+         echo #{ssh_pub_key} >> /home/$USER/.ssh/authorized_keys
+         echo "insert id_rsa.pub sucess!"
+      SHELL
+         # sudo bash -c "echo #{ssh_pub_key} >> /root/.ssh/authorized_keys"
+    end
   end
 
 end

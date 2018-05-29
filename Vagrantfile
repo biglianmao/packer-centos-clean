@@ -6,6 +6,7 @@ Vagrant.configure("2") do |config|
   # By default, this is true. If you do not have to care about security in your project and want to keep using the default insecure key, set this to false.
   config.ssh.insert_key = false
   config.vm.synced_folder '.', '/vagrant', type: 'nfs'
+  config.vm.synced_folder '/Volumes/MacWork/Work/pycode', '/home/vagrant/code', type: 'nfs' ,create: true
 
   #config.ssh.username = "vagrant"  #设置虚拟机默认登录的账号密码 
   #config.ssh.password = "vagrant"。#，如果后面需要从22端口访问，需要先将ssh登录改成用户名/密码模式，用ssh-copy-id将本地id_rsa.pub复制到guest中
